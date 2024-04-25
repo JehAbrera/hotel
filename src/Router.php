@@ -17,5 +17,5 @@ if ($page == "compute") {
     $payment = $_POST['payment'];
     $datetime = $_POST['datetime'];
 
-    $controller->computeTotal($name, $phone, $from, $to, $room, $cap, $payment, $datetime);
+    $controller->computeTotal("reserve", $name, $phone, $from, $to, $room, $cap, $payment, $datetime);
 }

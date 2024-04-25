@@ -27,9 +27,6 @@
         <div id="nav-area">
             <ul class=" menu menu-horizontal flex flex-row items-center">
                 <li><a href="?page=index">Home</a></li>
-                <li><a href="?page=profile">About Us</a></li>
-                <li><a href="?page=contact">Contacts</a></li>
-                <li><a href="?page=reserve" class=" btn btn-accent">Reserve Now</a></li>
             </ul>
         </div>
     </nav>
@@ -39,7 +36,7 @@
         ?>
         <section class=" flex flex-row justify-evenly items-center h-screen">
             <?php
-            if (!isset($step)) { ?>
+            if (!isset($step) || $step != "compute") { ?>
                 <form action="?page=compute" method="post" class=" flex flex-col max-h-[90vh] w-2/5 bg-zinc-100 gap-1 rounded-xl p-4 items-stretch overflow-auto">
                     <?php if (isset($_SESSION['error'])) {
                         /*$url = $_SERVER['PHP_SELF'] . '?page=' . urlencode($page);
@@ -158,35 +155,35 @@
                         <div class=" flex flex-col items-stretch">
                             <div class=" flex flex-col">
                                 <div class="badge badge-primary badge-outline my-4">Customer Info</div>
-                                <span class=" flex justify-between"><strong>Name: </strong><?= $_SESSION['data']['name'] ?></span>
-                                <span class=" flex justify-between"><strong>Contact: </strong><?= $_SESSION['data']['phone'] ?></span>
-                                <span class=" flex justify-between"><strong>Inquiry Date: </strong><?= $_SESSION['data']['date'] ?></span>
-                                <span class=" flex justify-between"><strong>Time: </strong><?= $_SESSION['data']['time'] ?></span>
+                                <span class=" flex justify-between"><strong>Name: </strong><?= $name ?></span>
+                                <span class=" flex justify-between"><strong>Contact: </strong><?= $phone ?></span>
+                                <span class=" flex justify-between"><strong>Inquiry Date: </strong><?= $date ?></span>
+                                <span class=" flex justify-between"><strong>Time: </strong><?= $time ?></span>
                             </div>
                             <div>
                                 <div class="badge badge-primary badge-outline my-4">Reservation Details</div>
                                 <div class=" flex justify-between">
-                                    <span><strong>From: </strong><?= date('F d, Y', strtotime($_SESSION['data']['from'])) ?></span>
-                                    <span><strong>To: </strong><?= date('F d, Y', strtotime($_SESSION['data']['to'])) ?></span>
+                                    <span><strong>From: </strong><?= date('F d, Y', strtotime($from)) ?></span>
+                                    <span><strong>To: </strong><?= date('F d, Y', strtotime($to)) ?></span>
                                 </div>
-                                <span class=" flex justify-between"><strong>Room Type: </strong><?= $_SESSION['data']['room'] ?></span>
-                                <span class=" flex justify-between"><strong>Room Capacity: </strong><?= $_SESSION['data']['cap'] ?></span>
-                                <span class=" flex justify-between"><strong>Payment Mode: </strong><?= $_SESSION['data']['payment'] ?></span>
+                                <span class=" flex justify-between"><strong>Room Type: </strong><?= $room ?></span>
+                                <span class=" flex justify-between"><strong>Room Capacity: </strong><?= $cap ?></span>
+                                <span class=" flex justify-between"><strong>Payment Mode: </strong><?= $payment ?></span>
                             </div>
                             <div>
                                 <div class="badge badge-primary badge-outline my-4">Billing Statement</div>
-                                <span class=" flex justify-between"><strong>Number of Days: </strong><?= $_SESSION['data']['days'] ?></span>
-                                <span class=" flex justify-between"><strong>Subtotal: </strong><?= number_format($_SESSION['data']['sub'], 2, ".", ",") ?></span>
-                                <span class=" flex justify-between"><strong>Discount: </strong><?= number_format($_SESSION['data']['disc'], 2, ".", ",") ?></span>
-                                <span class=" flex justify-between"><strong>Additional Charge: </strong><?= number_format($_SESSION['data']['add'], 2, ".", ",") ?></span>
-                                <span class=" flex justify-between p-1 text-error outline-dashed outline-1 outline-slate-950"><strong>Total Amount: </strong><?= number_format($_SESSION['data']['total'], 2, ".", ",") ?></span>
+                                <span class=" flex justify-between"><strong>Number of Days: </strong><?= $days ?></span>
+                                <span class=" flex justify-between"><strong>Subtotal: </strong><?= number_format($sub, 2, ".", ",") ?></span>
+                                <span class=" flex justify-between"><strong>Discount: </strong><?= number_format($disc, 2, ".", ",") ?></span>
+                                <span class=" flex justify-between"><strong>Additional Charge: </strong><?= number_format($add, 2, ".", ",") ?></span>
+                                <span class=" flex justify-between p-1 text-error outline-dashed outline-1 outline-slate-950"><strong>Total Amount: </strong><?= number_format($total, 2, ".", ",") ?></span>
                             </div>
                         </div>
                         <div>
                             <div class=" outline outline-1 outline-slate-950 p-2 flex flex-col h-full justify-between rounded-lg">
                                 <p class=" text-justify">The following information is your reservation inquiry for Sunset City Suites. By clicking <strong class=" text-success">Confirm</strong>, you ensure that all given information is correct and your inquiry is subject for approval. By clicking <strong class=" text-error">Cancel</strong>, this request will be voided and you will be redirected back to the reservation form.</p>
                                 <form action="?page=save" method="post" class=" flex justify-end gap-4">
-                                    <button onclick="location.href='?'" type="button" class=" btn btn-outline btn-error">Cancel</button>
+                                    <button onclick="location.href='?page=reserve'" type="button" class=" btn btn-outline btn-error">Cancel</button>
                                     <button type="submit" name="save" class=" btn btn-success">Confirm</button>
                                 </form>
                             </div>
