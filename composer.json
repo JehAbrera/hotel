@@ -1,0 +1,14 @@
+{
+    "name": "hp/hotelsysmvc",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "John Rey"
+        }
+    ],
+    "require": {}
+}
